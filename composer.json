@@ -9,8 +9,17 @@
             "email": "contact@coditron.com"
         }
     ],
-    "minimum-stability": "dev-main",
-    "require": {},
+     "require": {
+        "coditron/module-zipcodeavailability": "dev-master"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/pooja7994/Coditron.git"
+        }
+    ]
     "autoload": {
         "files": [
             "registration.php"
