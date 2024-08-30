@@ -9,8 +9,9 @@
             "email": "contact@coditron.com"
         }
     ],
-     "require": {
-        "coditron/module-zipcodeavailability": "dev-master"
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "magento/framework": "^103.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
