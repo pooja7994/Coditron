@@ -19,7 +19,7 @@
             "type": "vcs",
             "url": "https://github.com/pooja7994/Coditron.git"
         }
-    ]
+    ],
     "autoload": {
         "files": [
             "registration.php"
