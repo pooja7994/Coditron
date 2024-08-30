@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Coditron Technologies All rights reserved.
+ * See COPYING.txt for license details.
+ * http://www.coditron.com | contact@coditron.com
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- First Table -->
+    <table name="coditron_zipcodeavailability_zipcodeavailability" resource="default" engine="innodb" comment="coditron_zipcodeavailability_zipcodeavailability Table">
+        <column xsi:type="int" name="zipcodeavailability_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="zipcodeavailability_id"/>
+        </constraint>
+        <column name="region_name" nullable="true" xsi:type="text" comment="Region Name"/>
+        <column name="status" nullable="true" xsi:type="boolean" comment="Status"/>
+    </table>
+
+    <!-- Second Table -->
+    <table name="coditron_zipcodeavailability_zipcode" resource="default" engine="innodb" comment="Zipcode Table">
+        <column xsi:type="int" name="zipcode_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Zipcode Id"/>
+        <column xsi:type="int" name="region_id" padding="10" unsigned="true" nullable="false" comment="Region Id"/>
+        <column xsi:type="varchar" name="zipcode" length="255" nullable="false" comment="Zipcode"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="zipcode_id"/>
+        </constraint>
+       <!--  <constraint xsi:type="foreign" referenceId="FK_CUSTOM_ZIPCODEAVAILABILITY_ZIPCODE_ZIPCODEAVAILABILITY">
+            <column name="zipcodeavailability_id"/>
+            <reference table="custom_zipcodeavailability_zipcodeavailability">
+                <column name="zipcodeavailability_id"/>
+            </reference>
+        </constraint> -->
+    </table>
+</schema>

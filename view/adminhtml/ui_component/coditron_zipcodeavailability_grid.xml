@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Coditron Technologies All rights reserved.
+ * See COPYING.txt for license details.
+ * http://www.coditron.com | contact@coditron.com
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">coditron_zipcodeavailability_grid.coditron_zipcodeavailability_grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>coditron_zipcodeavailability_grid_columns</spinner>
+        <deps>
+            <dep>coditron_zipcodeavailability_grid.coditron_zipcodeavailability_grid_data_source</dep>
+        </deps>
+        <!-- <buttons>
+            <button name="add">
+                <url path="*/*/"/>
+                <class>primary</class>
+                <label translate="true">Add Zipcode</label>
+            </button>
+        </buttons> -->
+    </settings>
+    <dataSource name="coditron_zipcodeavailability_grid_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">zipcode_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider name="coditron_zipcodeavailability_grid_data_source" class="Coditron\ZipcodeAvailability\Model\Listing\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>zipcode_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete the selected zipcodes?</message>
+                    </confirm>
+                    <url path="coditron_zipcodeavailability/zipcode/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+    <columns name="coditron_zipcodeavailability_grid_columns">
+        <settings>
+            <editorConfig>
+                <param name="selectProvider" xsi:type="string">coditron_zipcodeavailability_grid.coditron_zipcodeavailability_grid.coditron_zipcodeavailability_grid_columns.ids</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="indexField" xsi:type="string">zipcode_id</param>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="coditron_zipcodeavailability/zipcodeavailability/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+            </editorConfig>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>zipcode_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="zipcode_id">
+            <settings>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="region_id">
+            <settings>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+                <label translate="true">Region Id</label>
+            </settings>
+        </column>
+        <column name="zipcode">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Zipcode</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+    </columns>
+</listing>

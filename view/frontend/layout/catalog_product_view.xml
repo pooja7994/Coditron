@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Coditron Technologies All rights reserved.
+ * See COPYING.txt for license details.
+ * http://www.coditron.com | contact@coditron.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- Include custom CSS file -->
+        <css src="Coditron_ZipcodeAvailability::css/zipcode-checker.css"/>
+    </head>
+    <body>
+        <referenceBlock name="product.info.price">
+            <block class="Coditron\ZipcodeAvailability\Block\Product\ZipcodeChecker" name="zipcode_checker" template="Coditron_ZipcodeAvailability::product/zipcode_checker.phtml" after="-" />
+        </referenceBlock>
+    </body>
+</page>

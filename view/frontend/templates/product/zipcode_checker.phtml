@@ -1,0 +1,144 @@
+<?php
+/**
+ * Copyright © Coditron Technologies All rights reserved.
+ * See COPYING.txt for license details.
+ * http://www.coditron.com | contact@coditron.com
+*/
+
+$product = $block->getProduct();
+$block->isEnabled();
+
+if ($product) {
+    $productId = $product->getId();
+    $regionIds = $block->getSelectedRegionIds();
+    $zipcode = $block->getUserZipcode();
+} else {
+    $productId = null; // Handle the case when the product is not available
+    $regionIds = [];
+    $zipcode = '';
+}
+
+$previousZipcodes = $block->getPreviousZipcodes(); // Fetch previous zip codes from session or local storage
+?>
+<?php if($block->isEnabled()): ?>
+<div class="zipchecker-product">
+    <form class="form-product-zipcode" method="post" id="form-product-zipcode">
+        <div class="zipcode-box">
+            <div class="zipcode-inner">
+                <div class="control">
+                    <input type="text" value="<?php echo $block->escapeHtml($zipcode); ?>" 
+                           placeholder="<?php echo __('Enter Delivery Zipcode') ?>" 
+                           name="zipcode" id="zipcode" 
+                           title="<?php echo __('Zipcode') ?>" 
+                           class="input-text postcode valid" 
+                           data-validate="{'required':true}" required>
+
+                    <!-- Custom suggestion box -->
+                    <div id="zipcode-suggestions" class="zipcode-suggestions"></div>
+                </div>
+                <div class="zipcode-check-btn">
+                    <button class="action primary" type="button" title="<?php echo __('Check') ?>" id="button-zipcode-check">
+                        <span><?php echo __('Check') ?></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="message" id="zipcode-check-message">
+    <!-- Result message will be displayed here -->
+</div>
+<?php endif; ?>
+
+<script>
+require(['jquery', 'mage/url'], function ($, urlBuilder) {
+    $(document).ready(function () {
+        // Load previous zip codes from localStorage
+        var previousZipcodes = JSON.parse(localStorage.getItem('previousZipcodes')) || [];
+
+        // Show all suggestions when the input field is focused
+        $('#zipcode').on('focus', function () {
+            showSuggestions(previousZipcodes);
+        });
+
+        // Hide suggestions when the input field loses focus, only if clicked outside the suggestion box
+        $(document).on('mousedown', function (e) {
+            if (!$(e.target).closest('#zipcode').length && !$(e.target).closest('#zipcode-suggestions').length) {
+                $('#zipcode-suggestions').hide();
+            }
+        });
+
+        // Prevent hiding the suggestions when scrolling
+        $('#zipcode-suggestions').on('mousedown', function (e) {
+            e.preventDefault();
+        });
+
+        // Function to show suggestions
+        function showSuggestions(suggestions) {
+            var suggestionBox = $('#zipcode-suggestions');
+            suggestionBox.empty();
+            if (suggestions.length > 0) {
+                suggestions.forEach(function (suggestion) {
+                    suggestionBox.append('<div class="suggestion-item">' + suggestion + '</div>');
+                });
+                suggestionBox.show();
+            } else {
+                suggestionBox.hide();
+            }
+        }
+
+        // Handle suggestion click
+        $(document).on('click', '.suggestion-item', function () {
+            $('#zipcode').val($(this).text());
+            $('#zipcode-suggestions').hide();
+        });
+
+        // Handle check button click
+        $('#button-zipcode-check').on('click', function () {
+            var zipcode = $('#zipcode').val();
+            var regionIds = <?php echo json_encode($regionIds); ?>; // Pass array directly
+            var productId = '<?php echo $productId; ?>'; // Retrieve the product ID
+            var url = urlBuilder.build('codeavailability/index/check');
+
+            if (zipcode == '') {
+                $('#zipcode-check-message').html('<p class="zipcode-check-message-error"><?php echo __('Please Enter Zipcode'); ?></p>');
+            } else {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: { zipcode: zipcode, region_ids: regionIds, product_id: productId }, // Pass array as region_ids
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response) {
+                            if (response.success) {
+                                $('#zipcode-check-message').html('<p class="zipcode-check-message-success" ><?php echo __('Delivery is available for this Zipcode'); ?></p>');
+                                $('#product-addtocart-button').prop('disabled', false);
+                            } else {
+                                $('#zipcode-check-message').html('<p class="zipcode-check-message-error"><?php echo __('Delivery is not available for this Zipcode.'); ?></p>');
+                                $('#product-addtocart-button').prop('disabled', true);
+                            }
+
+                            // Store the successful zip code to localStorage
+                            storeZipcode(zipcode);
+                        } else {
+                            $('#zipcode-check-message').html('<p class="zipcode-check-message-error"><?php echo __('Something went wrong while checking the zipcode availability.'); ?></p>');
+                            $('#product-addtocart-button').prop('disabled', true);
+                        }
+                    }
+                });
+            }
+        });
+
+        function storeZipcode(zipcode) {
+            var previousZipcodes = JSON.parse(localStorage.getItem('previousZipcodes')) || [];
+            if (!previousZipcodes.includes(zipcode)) {
+                previousZipcodes.push(zipcode);
+                localStorage.setItem('previousZipcodes', JSON.stringify(previousZipcodes));
+            }
+        }
+    });
+});
+
+</script>
+
+

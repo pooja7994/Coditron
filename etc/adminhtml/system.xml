@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Coditron Technologies All rights reserved.
+ * See COPYING.txt for license details.
+ * http://www.coditron.com | contact@coditron.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/system_file.xsd">
+    <system>
+        <tab id="zipcode_validator_tab" translate="label" sortOrder="100">
+            <label>Zipcode Validator</label>
+        </tab>
+        <section id="zipcode_validator_section" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Zipcode Validator Configuration</label>
+            <tab>zipcode_validator_tab</tab>
+            <resource>Magento_Config::config</resource>
+            <group id="zipcodeavailability" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Zipcode Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Zipcode Availability</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable zipcode availability feature.</comment>
+                </field>
+                <!-- <field id="order_place" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Place Order Only for Saved Zipcode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Allow placing orders only for saved zipcodes.</comment>
+                </field>
+                <field id="success_message" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Success Message</label>
+                    <validate>required-entry</validate>
+                    
+                </field>
+                <field id="error_message" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Error Message</label>
+                    <validate>required-entry</validate>
+                    
+                </field> -->
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Coditron Technologies All rights reserved.
+ * See COPYING.txt for license details.
+ * http://www.coditron.com | contact@coditron.com
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/coditron-zipcodeavailability/zipcodeavailability" method="GET">
+		<service class="Coditron\ZipcodeAvailability\Api\ZipcodeAvailabilityManagementInterface" method="getZipcodeAvailability"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route url="/V1/coditron-zipcodeavailability/zipcodeavailability" method="POST">
+		<service class="Coditron\ZipcodeAvailability\Api\ZipcodeAvailabilityRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Coditron_ZipcodeAvailability::ZipcodeAvailability_save"/>
+		</resources>
+	</route>
+	<route url="/V1/coditron-zipcodeavailability/zipcodeavailability/search" method="GET">
+		<service class="Coditron\ZipcodeAvailability\Api\ZipcodeAvailabilityRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Coditron_ZipcodeAvailability::ZipcodeAvailability_view"/>
+		</resources>
+	</route>
+	<route url="/V1/coditron-zipcodeavailability/zipcodeavailability/:zipcodeavailabilityId" method="GET">
+		<service class="Coditron\ZipcodeAvailability\Api\ZipcodeAvailabilityRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Coditron_ZipcodeAvailability::ZipcodeAvailability_view"/>
+		</resources>
+	</route>
+	<route url="/V1/coditron-zipcodeavailability/zipcodeavailability/:zipcodeavailabilityId" method="PUT">
+		<service class="Coditron\ZipcodeAvailability\Api\ZipcodeAvailabilityRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Coditron_ZipcodeAvailability::ZipcodeAvailability_update"/>
+		</resources>
+	</route>
+	<route url="/V1/coditron-zipcodeavailability/zipcodeavailability/:zipcodeavailabilityId" method="DELETE">
+		<service class="Coditron\ZipcodeAvailability\Api\ZipcodeAvailabilityRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Coditron_ZipcodeAvailability::ZipcodeAvailability_delete"/>
+		</resources>
+	</route>
+</routes>

@@ -1,0 +1,101 @@
+/**
+ * Copyright © Coditron Technologies All rights reserved.
+ * See COPYING.txt for license details.
+ * http://www.coditron.com | contact@coditron.com
+*/
+.zipcode-check-message-success {
+    color: green;
+}
+
+.zipcode-check-message-error {
+    color: red;
+}
+/*.zipchecker-product {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}*/
+
+.zipcode-box {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.zipcode-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.zipcode-box .control {
+    position: relative;
+    flex-grow: 1;
+}
+
+.zipcode-box .control input {
+    width: 100%;
+    padding: 8px 35px 8px 10px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    box-shadow: none;
+}
+
+.zipcode-box .control input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/*.control::before {
+    content: "\1F4CD"; /* This is a location pin icon */
+   /* position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}*/*/
+
+.zipcode-check-btn {
+    flex-shrink: 0;
+}
+
+.zipcode-check-btn button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.zipcode-check-btn button:hover {
+    background-color: #0056b3;
+}
+
+.zipcode-check-btn button span {
+    display: block;
+}
+
+.zipcode-suggestions {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    position: absolute;
+    max-height: 150px;
+    overflow-y: auto;
+    width: calc(100% - 20px);
+    display: none;
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
