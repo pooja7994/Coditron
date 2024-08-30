@@ -9,7 +9,7 @@
             "email": "contact@coditron.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "dev-main",
     "require": {},
     "autoload": {
         "files": [
